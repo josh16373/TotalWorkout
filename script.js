@@ -186,3 +186,71 @@ function getWeekNumber(d) {
 document.getElementById("daySelect").addEventListener("change", ()=>{
   if(currentUser) showDayPlan(currentUser, document.getElementById("daySelect").value);
 });
+
+// ===== CHECK LOGIN ON PAGE LOAD =====
+window.onload = function() {
+    const savedUser = localStorage.getItem("currentUser");
+    if(savedUser && users[savedUser]){
+        currentUser = savedUser;
+        document.getElementById("login").style.display = "none";
+        document.getElementById("welcome").style.display = "block";
+        document.getElementById("logoutBtn").style.display = "inline-block";
+        document.getElementById("userName").innerText = "Welcome, " + users[currentUser].name;
+        
+        highlightTodayDropdown();
+        const today = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date().getDay()];
+        document.getElementById("daySelect").value = today;
+        showDayPlan(currentUser, today);
+        showMacros(currentUser);
+    }
+};
+
+// ===== LOGOUT FUNCTION =====
+function logout() {
+    localStorage.removeItem("currentUser");
+    currentUser = "";
+    document.getElementById("login").style.display = "block";
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("logoutBtn").style.display = "none";
+    document.getElementById("code").value = "";
+    document.getElementById("pass").value = "";
+}
+
+// ===== MODIFY LOGIN FUNCTION TO SAVE CURRENT USER =====
+function login() {
+    const code = document.getElementById("code").value;
+    const pass = document.getElementById("pass").value;
+
+    if(users[code] && users[code].password === pass){
+        currentUser = code;
+        localStorage.setItem("currentUser", code); // <-- save login for persistence
+
+        const currentWeek = getWeekNumber(new Date());
+        const lastWeek = localStorage.getItem("week_" + currentUser);
+
+        if(lastWeek != currentWeek){
+            Object.keys(users[currentUser].workouts).forEach(day => {
+                localStorage.removeItem(currentUser + "_" + day);
+            });
+            localStorage.removeItem(currentUser + "_intake");
+            localStorage.setItem("week_" + currentUser, currentWeek);
+        }
+
+        document.getElementById("login").style.display = "none";
+        document.getElementById("welcome").style.display = "block";
+        document.getElementById("logoutBtn").style.display = "inline-block";
+        document.getElementById("userName").innerText = "Welcome, " + users[code].name;
+
+        highlightTodayDropdown();
+
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const today = days[new Date().getDay()];
+        document.getElementById("daySelect").value = today;
+
+        showDayPlan(currentUser, today);
+        showMacros(currentUser);
+
+    } else {
+        alert("Invalid username or password");
+    }
+}
