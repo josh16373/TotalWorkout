@@ -1,0 +1,123 @@
+/* ===== BODY & CONTAINERS ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+/* Centered containers */
+#welcome, #login {
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* HEADINGS */
+h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+/* INPUT GROUPS */
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.input-group label {
+    flex: 1;
+    margin-right: 10px;
+}
+input, select {
+    flex: 2;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* WORKOUT CARDS */
+#plan div {
+    background: linear-gradient(135deg, #ffe0b2, #ffcc80);
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+#plan div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+#plan input[type="checkbox"] {
+    transform: scale(1.3);
+    margin-right: 12px;
+    accent-color: #ff7043;
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(45deg, #ff8a65, #ff5722);
+    border: none;
+    padding: 7px 15px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* MACROS */
+#macros div {
+    margin: 12px 0;
+    font-size: 17px;
+    font-weight: 500;
+}
+#macros input {
+    width: 60px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    #welcome, #login {
+        width: 95%;
+        padding: 20px;
+    }
+    #plan div {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+    button {
+        margin-top: 8px;
+    }
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .input-group input, .input-group select {
+        width: 100%;
+        margin-top: 5px;
+    }
+}

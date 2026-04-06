@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workout App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login">
+  <h2>Login</h2>
+  <div class="input-group">
+    <label>Code:</label>
+    <input type="text" id="code">
+  </div>
+  <div class="input-group">
+    <label>Password:</label>
+    <input type="password" id="pass">
+  </div>
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- MAIN APP SCREEN -->
+<div id="welcome" style="display:none;">
+  <h2 id="userName">Welcome!</h2>
+
+  <div class="input-group">
+    <label>Choose Day:</label>
+    <select id="daySelect">
+      <option value="Sunday">Sunday</option>
+      <option value="Monday">Monday</option>
+      <option value="Tuesday">Tuesday</option>
+      <option value="Wednesday">Wednesday</option>
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+    </select>
+    <button onclick="addExercise(document.getElementById('daySelect').value)">Add Exercise</button>
+  </div>
+
+  <h3>Workout Plan</h3>
+  <div id="plan">
+    <!-- Example workout card -->
+    <div>
+      <label><input type="checkbox"> Pushups</label>
+      <button>Done</button>
+    </div>
+  </div>
+
+  <div id="streak">Current Streak: 0 week(s)</div>
+
+  <h3>Daily Macro Goals</h3>
+  <div id="macros">
+    <div>
+      Protein: <input type="number" id="eatProtein" placeholder="0"> / <span id="proteinGoal">120</span> g
+    </div>
+    <div>
+      Carbs: <input type="number" id="eatCarbs" placeholder="0"> / <span id="carbsGoal">200</span> g
+    </div>
+    <div>
+      Fat: <input type="number" id="eatFat" placeholder="0"> / <span id="fatGoal">50</span> g
+    </div>
+    <div>
+      Calories: <input type="number" id="eatCalories" placeholder="0"> / <span id="caloriesGoal">2000</span> kcal
+    </div>
+    <div>
+      Sugar: <input type="number" id="eatSugar" placeholder="0"> / <span id="sugarGoal">30</span> g
+    </div>
+    <button onclick="updateIntake()">Update Intake</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
