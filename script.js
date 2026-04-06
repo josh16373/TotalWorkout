@@ -132,14 +132,28 @@ function highlightTodayDropdown(){
 function addExercise(day){
   const newEx = prompt("Enter new exercise:");
   if(newEx){
+    // Add to user workouts
     users[currentUser].workouts[day].push(newEx);
+
+    // Save updated workouts to localStorage
+    localStorage.setItem(currentUser + "_workouts", JSON.stringify(users[currentUser].workouts));
+
+    // Refresh the UI
     showDayPlan(currentUser, day);
   }
 }
 
 function removeExercise(day,index){
+  // Remove from user workouts
   users[currentUser].workouts[day].splice(index,1);
+
+  // Remove saved ticks for that day
   localStorage.removeItem(currentUser + "_" + day);
+
+  // Save updated workouts to localStorage
+  localStorage.setItem(currentUser + "_workouts", JSON.stringify(users[currentUser].workouts));
+
+  // Refresh the UI
   showDayPlan(currentUser, day);
 }
 
@@ -220,6 +234,11 @@ function logout() {
 function login() {
     const code = document.getElementById("code").value;
     const pass = document.getElementById("pass").value;
+    // Load saved workouts if they exist
+    const savedWorkouts = JSON.parse(localStorage.getItem(currentUser + "_workouts"));
+    if(savedWorkouts) {
+    users[currentUser].workouts = savedWorkouts;
+    }
 
     if(users[code] && users[code].password === pass){
         currentUser = code;
@@ -253,4 +272,10 @@ function login() {
     } else {
         alert("Invalid username or password");
     }
+
+
+
+
+    
 }
+
